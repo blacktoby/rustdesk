@@ -92,6 +92,12 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Hardcode Server Settings
+        run: |
+          sed -i 's/pub const RENDEZVOUS_SERVERS: &\[&str\] = &\[".*"\];/pub const RENDEZVOUS_SERVERS: \&[\&str] = \&["remote.comu.de"];/g' libs/hbb_common/src/config.rs
+          sed -i 's/pub const RS_PUB_KEY: &str = ".*";/pub const RS_PUB_KEY: \&str = "NXok6MxLR4qngyFXiIf7FCM0r+rmpmFWMcFXmkK00TU=";/g' libs/hbb_common/src/config.rs
+        shell: bash
+
       - name: Restore bridge files
         uses: actions/download-artifact@master
         with:
